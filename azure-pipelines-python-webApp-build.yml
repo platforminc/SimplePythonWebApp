@@ -54,6 +54,12 @@ stages:
         configMode: 'manual'
         cliProjectKey: 'Lab-All-Pipelines_Lab-All-Pipelines_AYDoYXPvsGl-Mlsb2bp8v'
         cliSources: '.'
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          $params = "$env:SONARQUBE_SCANNER_PARAMS" -replace '"sonar.branch.name":"[\w,/,-]*"\,?'
+              Write-Host "##vso[task.setvariable variable=SONARQUBE_SCANNER_PARAMS]$params"
     - task: SonarQubeAnalyze@5
 
     - task: SonarQubePublish@5
