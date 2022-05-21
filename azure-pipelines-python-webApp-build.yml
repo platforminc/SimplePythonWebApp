@@ -47,6 +47,18 @@ stages:
       workingDirectory: $(projectRoot)
       displayName: "Install requirements"
 
+    - task: SonarQubePrepare@5
+      inputs:
+        SonarQube: 'Analyze-Pipelines'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: 'Lab-All-Pipelines_Lab-All-Pipelines_AYDoYXPvsGl-Mlsb2bp8v'
+        cliSources: '.'
+    - task: SonarQubeAnalyze@5
+
+    - task: SonarQubePublish@5
+      inputs:
+        pollingTimeoutSec: '300'
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
